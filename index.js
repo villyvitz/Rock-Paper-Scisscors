@@ -1,3 +1,47 @@
+const buttons = document.querySelectorAll("button");
+const content = document.querySelector('.content');
+const results = content.querySelector('#results');
+const playerScore = content.querySelector('#playerScore');
+const computerScore = content.querySelector('#computerScore');
+let pScoreValue = 0;
+let cScoreValue = 0;
+
+
+buttons.forEach( (button) => {
+    button.addEventListener('click', () => {
+        let result = playRound2(button.id,computerPlay());
+        results.textContent = result;
+        if (result.includes("win")){
+            pScoreValue ++;
+            console.log(pScoreValue);
+            
+            playerScore.textContent = `Your score is ${pScoreValue}`;
+        }
+
+        if (result.includes("lose")){
+            cScoreValue ++;
+            computerScore.textContent = `Computer score is ${cScoreValue}`;
+        }
+        if (pScoreValue == 5 || cScoreValue == 5) {
+            if (pScoreValue == 5){
+                results.textContent = "You won! Good job";
+            }
+            else{
+                results.textContent = "You lost! Bad job";
+            }
+            
+            playerScore.textContent = "Your score is 0";
+            computerScore.textContent = "Computer score is 0";
+            pScoreValue = 0;
+            cScoreValue = 0;
+            
+        }
+
+    })
+})
+
+
+
 function computerPlay() {
     const randomNumber = Math.floor(Math.random() *3);
 
